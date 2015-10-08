@@ -111,14 +111,13 @@ public class Facade {
     public void         setEmail(int id,String email){
         emf = Persistence.createEntityManagerFactory("CA2_projectPU");
         EntityManager em = emf.createEntityManager();
-       
         Person edited = em.find(Person.class, id);
-        
         em.getTransaction().begin();
-        em.createQuery(
+        Query query = em.createQuery(
                     "update InfoEntity ie set ie.email = "+email+" WHERE ie.id LIKE :theid")
                     .setParameter("theid", id);
-            //    .setParameter("emailla", email);
+        query.getSingleResult();
+        //    .setParameter("emailla", email);
         
         em.getTransaction().commit();
         em.close();

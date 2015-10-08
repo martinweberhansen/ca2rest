@@ -20,8 +20,7 @@ public class Person extends InfoEntity implements Serializable  {
     @ManyToMany
     private List<Hobby> hobbies;
     
-    @Id
-    private int id;
+   
     private String fName;
     private String lName;
 
@@ -33,9 +32,6 @@ public class Person extends InfoEntity implements Serializable  {
     public Person(){
     }
     
-    public Person(int id){
-        this.id = id;
-    }
 
     public String getfName() {
         return fName;
@@ -53,13 +49,4 @@ public class Person extends InfoEntity implements Serializable  {
         this.lName = lName;
     }
 
-    @Override
-    public int getId() {
-        return id;
-    }
-    
-    @Override
-    public void setId(int id) {
-        this.id = id;
-    }
 }
