@@ -20,7 +20,6 @@ public class InfoEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
     private String email;
 
     public InfoEntity(int id, String email) {
@@ -37,6 +36,10 @@ public class InfoEntity implements Serializable {
 
     public void setId(int id) {
         this.id = id;
+    }
+    
+    public String getEmail(){
+        return email;
     }
 
 }

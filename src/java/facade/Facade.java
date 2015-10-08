@@ -36,7 +36,7 @@ public class Facade {
         phone = new Phone();
     }
     
-    public Person getPerson(int id){
+    public Person       getPerson(int id){
         emf = Persistence.createEntityManagerFactory("CA2_projectPU");
         EntityManager em = emf.createEntityManager();
         
@@ -45,7 +45,7 @@ public class Facade {
         return p;
     }
     
-      public void addPerson(Person p){
+    public void         addPerson(Person p){
         emf = Persistence.createEntityManagerFactory("CA2_projectPU");
         EntityManager em = emf.createEntityManager();
         
@@ -57,7 +57,7 @@ public class Facade {
         em.close();
     }
     
-    List<Person> getPersons(){
+    public List<Person> getPersons(){
         emf = Persistence.createEntityManagerFactory("CA2_projectPU");
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
@@ -68,7 +68,19 @@ public class Facade {
         return result;
     } 
     
-    List<Person> getPersons(int zipCode){
+    public void         deletePerson(int id){
+        emf = Persistence.createEntityManagerFactory("CA2_projectPU");
+        EntityManager em = emf.createEntityManager();
+        
+        Person p = em.find(Person.class, id);
+        
+        em.getTransaction().begin();
+        em.remove(p);
+        em.getTransaction().commit();
+        em.close();
+    }
+    
+    public List<Person> getPersons(int zipCode){
         emf = Persistence.createEntityManagerFactory("CA2_projectPU");
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
@@ -79,8 +91,57 @@ public class Facade {
         return result;
     } 
     
-    Company getCompany(String cvr){
+    public InfoEntity   getInfoEntity(int id){
+        emf = Persistence.createEntityManagerFactory("CA2_projectPU");
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+        
+        InfoEntity ie = em.find(InfoEntity.class, id);
+        return ie;
+    }
+    
+    public Person editPerson(Person p){
+        emf = Persistence.createEntityManagerFactory("CA2_projectPU");
+        EntityManager em = emf.createEntityManager();
+       
+        Person edited = em.find(Person.class, p.getId());
         
     }
+    
+    public void         setEmail(int id,String email){
+        emf = Persistence.createEntityManagerFactory("CA2_projectPU");
+        EntityManager em = emf.createEntityManager();
+       
+        Person edited = em.find(Person.class, id);
+        
+        em.getTransaction().begin();
+        em.createQuery(
+                    "update InfoEntity ie set ie.email = "+email+" WHERE ie.id LIKE :theid")
+                    .setParameter("theid", id);
+            //    .setParameter("emailla", email);
+        
+        em.getTransaction().commit();
+        em.close();
+        
+    }
+    
+//    UPDATE Player p
+//SET p.status = 'inactive'
+//WHERE p.lastPlayed < :inactiveThresholdDate
+//    
+//    
+//public List findWithName(String name) {
+//return em.createQuery(
+//    "SELECT c FROM Customer c WHERE c.name LIKE :custName")
+//    .setParameter("custName", name)
+//    .setMaxResults(10)
+//    .getResultList();
+//}
+  
+  
+  
+//    Company getCompany(String cvr){
+//        
+//    }
     
 }
