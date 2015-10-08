@@ -1,12 +1,56 @@
 <!DOCTYPE html>
-
 <html>
     <head>
         <title>TODO supply a title</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+         
+         
+         <script>
+             
+            $(document).ready(function (){
+                
+                $.ajax({
+                    type:"GET",
+                    url:"http://localhost:8080/jax-rs-dag1/api/quote/randomQuote"
+                    }).then(function(data) {
+                        var obj = JSON.parse( data );
+                        $('#quoteOfTheDay').html(obj.quote);
+                });    
+            
+                $("#quoteOfTheDayButton").click(function(){
+                    $.ajax({
+                            type:'GET',
+                            url:"http://localhost:8080/jax-rs-dag1/api/quote/randomQuote"
+                           }).then(function(data) {
+                                var obj = JSON.parse( data );
+                                $('#quoteOfTheDay').html(obj.quote);
+                           }); 
+                }); 
+                
+                $('#newQuote').click(function(){
+                    var data = $("#putQuote").val();
+                    var newQ = {"quote":"new quote :"+data};
+                   $.ajax({
+                      type:'POST',
+                      data :JSON.stringify(newQ),
+                      url:'http://localhost:8080/jax-rs-dag1/api/quote/',
+                      contentType: "application/json"
+                  
+                   }); 
+                });
+                
+            });
+        </script>
     </head>
-    <body>
-        <div>TODO write content</div>
+    <body>     <button id="quoteOfTheDayButton">new quote of the day</button>
+        <h4 id="quoteOfTheDay">this should show the quote of the day!</h4>
+        <br>
+        <button id="newQuote"> new quote </button>
+        <br>
+        
+        New quote: <input id="putQuote" type="text">
     </body>
 </html>
