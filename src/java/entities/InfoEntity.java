@@ -41,5 +41,6 @@ public class InfoEntity implements Serializable {
     public String getEmail(){
         return email;
     }
+    
 
 }

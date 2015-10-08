@@ -16,24 +16,9 @@ import javax.persistence.Query;
 
 public class Facade {
     
-    private final Person person;
-    private final Hobby hobby;
-    private final Address address;
-    private final CityInfo cityInfo;
-    private final Company company;
-    private final InfoEntity infoEntity;
-    private final Phone phone;
-    
     private EntityManagerFactory emf;
     
     public Facade(){
-        person = new Person();
-        hobby = new Hobby();
-        address = new Address();
-        cityInfo = new CityInfo();
-        company = new Company();
-        infoEntity = new InfoEntity();
-        phone = new Phone();
     }
     
     public Person       getPerson(int id){
@@ -100,43 +85,45 @@ public class Facade {
         return ie;
     }
     
-    public Person editPerson(Person p){
+    public void         updateEmail(int id,String email){
         emf = Persistence.createEntityManagerFactory("CA2_projectPU");
         EntityManager em = emf.createEntityManager();
-       
-        Person edited = em.find(Person.class, p.getId());
-        
-    }
-    
-    public void         setEmail(int id,String email){
-        emf = Persistence.createEntityManagerFactory("CA2_projectPU");
-        EntityManager em = emf.createEntityManager();
-        Person edited = em.find(Person.class, id);
         em.getTransaction().begin();
+        
         Query query = em.createQuery(
-                    "update InfoEntity ie set ie.email = "+email+" WHERE ie.id LIKE :theid")
-                    .setParameter("theid", id);
-        query.getSingleResult();
-        //    .setParameter("emailla", email);
+                    "update InfoEntity ie set ie.email = :emailla WHERE ie.id LIKE :theid")
+                    .setParameter("theid", id)
+                    .setParameter("emailla", email);
+        query.executeUpdate();
         
         em.getTransaction().commit();
-        em.close();
-        
+        em.close();   
     }
     
-//    UPDATE Player p
-//SET p.status = 'inactive'
-//WHERE p.lastPlayed < :inactiveThresholdDate
-//    
-//    
-//public List findWithName(String name) {
-//return em.createQuery(
-//    "SELECT c FROM Customer c WHERE c.name LIKE :custName")
-//    .setParameter("custName", name)
-//    .setMaxResults(10)
-//    .getResultList();
-//}
-  
+    public void         addAddressToPerson(Address address, Person person){
+        emf = Persistence.createEntityManagerFactory("CA2_projectPU");
+        EntityManager em = emf.createEntityManager();
+        
+        
+        em.getTransaction().begin();
+        
+        em.persist(person);
+        address.addEntity(person);
+        em.flush();
+        
+       
+        em.persist(address);
+        
+        
+        em.getTransaction().commit();
+        
+         
+        em.close();
+    }
+    
+     
+
+    
   
   
 //    Company getCompany(String cvr){

@@ -13,6 +13,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.Produces;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
 
@@ -41,14 +42,22 @@ public class RestAPI {
         int newId = Integer.parseInt(id);
         Person p = facade.getPerson(newId);
         
-        String s = JSONConverter.getJSONFromPerson(p);
-        
-//        response.addProperty("fName", p.getfName());
-//        response.addProperty("lName", p.getlName());
-//        response.addProperty("email", p.getEmail());
-        return gson.toJson(s);
-//        return s;
+        response.addProperty("fName", p.getfName());
+        response.addProperty("lName", p.getlName());
+        response.addProperty("email", p.getEmail());
+        return gson.toJson(response);
     }
+    
+    @POST
+    @Path("/person")
+    @Consumes("application/json")
+    public void postPerson(String js){
+        Person p = JSONConverter.getPersonFromJson(js);
+        
+        facade.addPerson(p);
+    }
+    
+    
     
     
 }
