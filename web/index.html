@@ -8,49 +8,87 @@
          <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
          
          
+         
+         <style>
+            table, th, td {
+            border: 1px solid black;
+            }
+        </style>
+        
+        
+        
          <script>
-             
+          
+           
             $(document).ready(function (){
                 
-                $.ajax({
-                    type:"GET",
-                    url:"http://localhost:8080/jax-rs-dag1/api/quote/randomQuote"
-                    }).then(function(data) {
-                        var obj = JSON.parse( data );
-                        $('#quoteOfTheDay').html(obj.quote);
-                });    
-            
-                $("#quoteOfTheDayButton").click(function(){
+              $("#getPersonButton").click(function(){
+                    var input = $("#searchPersonIdInput").val();
+                   
                     $.ajax({
-                            type:'GET',
-                            url:"http://localhost:8080/jax-rs-dag1/api/quote/randomQuote"
-                           }).then(function(data) {
-                                var obj = JSON.parse( data );
-                                $('#quoteOfTheDay').html(obj.quote);
-                           }); 
-                }); 
-                
-                $('#newQuote').click(function(){
-                    var data = $("#putQuote").val();
-                    var newQ = {"quote":"new quote :"+data};
-                   $.ajax({
-                      type:'POST',
-                      data :JSON.stringify(newQ),
-                      url:'http://localhost:8080/jax-rs-dag1/api/quote/',
-                      contentType: "application/json"
-                  
-                   }); 
+                        type :'GET',
+                        url:'http://localhost:8080/CA2_project/api/info/person/'+input
+                    }).then(function(jsonString){
+                        var table = document.getElementById("Table");
+                        var row = table.insertRow(0);
+                        var cell1 = row.insertCell(0);
+                        var cell2 = row.insertCell(1);
+                        var cell3 = row.insertCell(2);
+                        cell1.innerHTML = jsonString.fName;
+                        cell2.innerHTML = jsonString.lName;
+                        cell3.innerHTML = jsonString.email;
+                    });
                 });
                 
+                $("#getPersonhobbyButton").click(function(){
+                   // $("#selecter").
+                    var input = $("#searchPersonhobbyInput").val();
+                   
+                    $.ajax({
+                        type :'GET',
+                        url:'http://localhost:8080/CA2_project/api/info/person/hobby/'+input
+                    }).then(function(jsonString){
+                        
+                            var table = document.getElementById("Table");
+                            $.each(jsonString,function(i,item){
+                                var row = table.insertRow(0);
+                                var cell1 = row.insertCell(0);
+                                var cell2 = row.insertCell(1);
+
+                                cell1.innerHTML = jsonString[i].fName;
+                                cell2.innerHTML = jsonString[i].lName;
+                            //          eller          item.fName;
+                            });
+                        });
+                    });
+        
             });
         </script>
     </head>
-    <body>     <button id="quoteOfTheDayButton">new quote of the day</button>
-        <h4 id="quoteOfTheDay">this should show the quote of the day!</h4>
+    <body> 
+                <h1>Person finder</h1>
+       
+        <!--select  parameter  :<select id="selecter">
+            <option value="id">id</option>
+            <option value="city">city</option>
+            <option value="phone">phone</option>
+            <option value="hobby">hobby</option>
+            <option value="fname">first name</option>
+            <option value="zip">zip</option>
+        </select>-->
+        
+        <h1 id="head"> </h1>
+        <br><br>
+        
+        search person by ID   : <input id="searchPersonIdInput" type="text"> <button id="getPersonButton">get person</button><br>
+        search person by hobby: <input id="searchPersonhobbyInput" type="text"> <button id="getPersonhobbyButton">get person</button>
         <br>
-        <button id="newQuote"> new quote </button>
+   
+        <table id="Table" >
+           
+        </table>
         <br>
         
-        New quote: <input id="putQuote" type="text">
+        
     </body>
 </html>

@@ -16,6 +16,29 @@
       <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
       <property name="javax.persistence.jdbc.password" value="test"/>
       <property name="javax.persistence.schema-generation.database.action" value="create"/>
+      <property name="eclipselink.canonicalmodel.subpackage" value="development"/>
+    </properties>
+  </persistence-unit>
+  
+  
+   <persistence-unit name="pu_OPENSHIFT" transaction-type="RESOURCE_LOCAL">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+     <non-jta-data-source>java:/comp/env/jdbc/MySQLDS</non-jta-data-source> 
+    <class>entities.Address</class>
+    <class>entities.CityInfo</class>
+    <class>entities.Company</class>
+    <class>entities.Hobby</class>
+    <class>entities.InfoEntity</class>
+    <class>entities.Person</class>
+    <class>entities.Phone</class>
+    <exclude-unlisted-classes>false</exclude-unlisted-classes>
+    <properties>
+     
+      
+      <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+      
+      <property name="javax.persistence.schema-generation.database.action" value="create"/>
+      <property name="eclipselink.canonicalmodel.subpackage" value="deploy"/>
     </properties>
   </persistence-unit>
 </persistence>

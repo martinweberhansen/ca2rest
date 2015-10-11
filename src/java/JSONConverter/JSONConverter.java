@@ -2,6 +2,7 @@ package JSONConverter;
 
 
 import com.google.gson.Gson;
+import entities.Hobby;
 import entities.Person;
 import java.util.List;
 
@@ -13,6 +14,12 @@ public class JSONConverter {
            Person p = gson.fromJson(js, Person.class);
            return p;
        } 
+       
+       public static Hobby getHobbyFromJson(String js){
+           Gson gson = new Gson();
+           Hobby h = gson.fromJson(js,Hobby.class);
+           return h;
+       }
  
        
        public static String getJSONFromPerson(Person p) {

@@ -1,8 +1,12 @@
 package test;
 
+import deploy.DeploymentConfiguration;
 import entities.Address;
+import entities.CityInfo;
+import entities.Hobby;
 import entities.InfoEntity;
 import entities.Person;
+import exception.PersonNotFoundException;
 import facade.Facade;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -11,29 +15,131 @@ import javax.persistence.Persistence;
 import javax.persistence.Query;
 
 public class InserterClass {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws PersonNotFoundException {
+        
+        Facade facade = new Facade();
+        
+        EntityManagerFactory emf;
+        emf = Persistence.createEntityManagerFactory(DeploymentConfiguration.PU_NAME);
+        EntityManager em = emf.createEntityManager();
+        
+    em.getTransaction().begin();
+    
+        
+    List<Person> l = facade.getPersons();
+//        for (Person p : l) {
+//            System.out.println(p.getfName()+" : fName");
+//            System.out.println(p.getlName()+": lName");
+//            System.out.println(p.getEmail()+" :EMAIL");
+//            System.out.println(p.getId()+" : ID");
+//        }
+    
+//       List<Person> list = facade.getPersonsByHobbyId("1");
+    
+//        System.out.println(list.get(1).getfName());
+        
+//         for (Person p : list){
+//             System.out.println(p.getfName()+" : name");
+//        }
+
+       
+       
+//        for (int i = 0; i < list.size(); i++) {
+//            System.out.println(list.get(i).toString());
+//        }
+    
+//    Hobby hobby = new Hobby();
+//    hobby.setDescription("spilles med fjer..");
+//    hobby.setName("badminton");
+//    em.persist(hobby);
+    
+//        System.out.println(facade.getHobbyById(1).getName()+"NAME!!!!!!!!!");
+//    System.out.println(facade.getHobbyById(1).getId()+"   ID:::::");
+//    Address addr = em.find(Address.class, 3);
+//    CityInfo ci = em.find(CityInfo.class, 2800);
+//        System.out.println(addr.getCityName()+"thins is address");
+//     System.out.println(ci.getCity());
+//     
+//     facade.addAddressToCityInfo(addr, ci);
+     
+     
+     
+        
+//    Person p1 = new Person( "peterf1", "peterl1");
+//    Person p2 = new Person( "peterf2", "peterl2");
+//    Person p3 = new Person( "peterf3", "peterl3");                        
+//    
+//    em.persist(p1);
+//    em.persist(p2);
+//    em.persist(p3);
         
         
-//       EntityManagerFactory emf;
+//    Address addr = new Address();            
+//    addr.setCityName("lyngby");
+//    addr.setAdditionalInfo("stuen,th");
+//    addr.setStreet("Lyngby Hovedgade 15");    
+//    em.persist(addr);
+
+        
+//        EntityManagerFactory emf;
 //        emf = Persistence.createEntityManagerFactory("CA2_projectPU");
 //        EntityManager em = emf.createEntityManager();
-        
-          // em.getTransaction().begin();
-        
-     
-    Facade facade = new Facade();
-        
-        
-    Address addr = new Address();
-    addr.setCityName("Herning");
-    addr.setAdditionalInfo("3,th");
-    addr.setStreet("HerningVej 13");
+//    
+//        em.getTransaction().begin();
+//
+//            Address addr = em.find(Address.class, 1);
+//            InfoEntity ie = em.find(InfoEntity.class, 1);
+//
+//    
+//    facade.addAddressToEntity(addr, ie);
+//    
+    em.getTransaction().commit();
+    em.close();
+    emf.close();
     
-    Person p = new Person();
-    p.setfName("buggy");
-    p.setlName("Mayn");
+   
     
-    facade.addAddressToPerson(addr, p);
+    
+     //     System.out.println(addr.getId());
+//        System.out.println(person.getId());
+    
+    
+//        Address addr = new Address();
+//    addr.setCityName("Herning");
+//    addr.setAdditionalInfo("3,th");
+//    addr.setStreet("HerningVej 13");
+//    
+//    em.persist(addr);
+//      
+//    
+//    Person p1 = new Person( "peter1", "peter1");
+//    Person p2 = new Person( "peter2", "peter2");
+//    Person p3 = new Person( "peter3", "peter3");
+//    
+//    em.persist(p1);
+//    em.persist(p2);
+//    em.persist(p3);
+//    
+//    
+
+//        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+        
+
+       
     
 //    em.persist(addr);
 //    
@@ -43,7 +149,6 @@ public class InserterClass {
 //    
 //    em.flush();
     
-
 
 //    Address address = em.find(Address.class, 1);
 //    ie = em.find(InfoEntity.class, 1);
@@ -58,21 +163,17 @@ public class InserterClass {
 //    List<Address> dList = (List<Address>) query.getResultList();
 //    System.out.println(dList);
     
-//    em.getTransaction().commit();
-//    em.close();
-//    emf.close();
+    
+    
+    
         
-        
-        
-        
-        
-        //System.out.println(facade.getPerson(2).getfName());
-        
-        //facade.setEmail(9, "bendsten@jawja"); //HVORFOR KAN JEG IKKE DET!!!!!!!!!!!!!!!!!!
+//        System.out.println(facade.getPerson(2).getfName());
+//        
+//        facade.setEmail(9, "bendsten@jawja"); //HVORFOR KAN JEG IKKE DET!!!!!!!!!!!!!!!!!!
 //        System.out.println(facade.getPerson(4).getfName());
 
 
-        //Person j1 = facade.getPerson(1);
+       // Person j1 = facade.getPerson(1);
 //        Person j2 = facade.getPerson(2);
 //        Person j3 = facade.getPerson(3);
         

@@ -15,18 +15,7 @@ import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-
-
-
-
-
-
-
-
-
-
-
-
+import javax.persistence.OneToOne;
 
 
 @Entity
@@ -39,31 +28,15 @@ public class InfoEntity implements Serializable {
     private int id;
     private String email;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    
+    @OneToOne(cascade = CascadeType.PERSIST)
     private Address address;
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
     
     
     public void setAddress(Address address) {
         this.address = address;
+        this.address.setInfoEntity(this);
     }
     
     public InfoEntity(int id, String email) {

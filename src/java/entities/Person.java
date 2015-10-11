@@ -3,6 +3,7 @@ package entities;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,12 +13,12 @@ import javax.persistence.ManyToMany;
 
 @Entity
 public class Person extends InfoEntity implements Serializable  {
-    //private static final long serialVersionUID = 1L;
+    
     
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.PERSIST)
     private List<Hobby> hobbies;
     
    
@@ -32,21 +33,32 @@ public class Person extends InfoEntity implements Serializable  {
     public Person(){
     }
     
-
-    public String getfName() {
+    public String   getfName() {
         return fName;
     }
 
-    public void setfName(String fName) {
+    public void     setfName(String fName) {
         this.fName = fName;
     }
 
-    public String getlName() {
+    public String   getlName() {
         return lName;
     }
 
-    public void setlName(String lName) {
+    public void     setlName(String lName) {
         this.lName = lName;
     }
 
+    public List<Hobby> getHobbies() {
+        return hobbies;
+    }
+
+    public void     setHobbies(List<Hobby> hobbies) {
+        this.hobbies = hobbies;
+    }
+
+    public void     addHobby(Hobby hobby){
+        hobbies.add(hobby);
+    }
+    
 }
